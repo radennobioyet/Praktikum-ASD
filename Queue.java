@@ -50,30 +50,40 @@ class Queue {
         }
     }
 
-    void Enqueue(int dt) {
+    public void Enqueue(int dt) {
         if (isFull()) {
-            System.out.println("Queue penuh (overflow)");
-            return;
-        }
-        if (isEmpty()) {
-            front = rear = 0;
+            System.out.println("Queue sudah penuh");
         } else {
-            rear++;
+            if (isEmpty()) {
+                front = rear = 0;
+            } else {
+                if (rear == max - 1) {
+                    rear = 0;
+                } else {
+                    rear++;
+                }
+            }
+            data[rear] = dt;
+            size++;
         }
-        data[rear] = dt;
-        size++;
     }
 
-    int Dequeue() {
+    public int Dequeue() {
+        int dt = 0;
         if (isEmpty()) {
-            System.out.println("Queue kosong (underflow)");
-            return -1;
-        }
-        int dt = data[front];
-        front++;
-        size--;
-        if (size == 0) {
-            front = rear = -1;
+            System.out.println("Queue masih kosong");
+        } else {
+            dt = data[front];
+            size--;
+            if (isEmpty()) {
+                front = rear = -1;
+            } else {
+                if (front == max - 1) {
+                    front = 0;
+                } else {
+                    front++;
+                }
+            }
         }
         return dt;
     }
